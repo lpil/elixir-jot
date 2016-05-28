@@ -6,7 +6,9 @@ String = "([^\\""]|\\.)*"
 Hash   = #
 EQ     = =
 WS     = [\s\t]+
-Word   = [^\t\s\n\.#=]+
+Word   = [^\(\)\t\s\n\.#=]+
+OpenP  = \(
+CloseP = \)
 
 Rules.
 
@@ -17,6 +19,8 @@ Rules.
 {Dot}    : {token, {dot,  TokenChars}}.
 {EQ}     : {token, {eq,   TokenChars}}.
 {WS}     : {token, {ws,   TokenChars}}.
+{OpenP}  : {token, {'(',  TokenChars}}.
+{CloseP} : {token, {')',  TokenChars}}.
 
 Erlang code.
 

@@ -6,7 +6,7 @@ defmodule Jot.Lexer.ElementTest do
 
   defmacro template ~> tokens do
     quote do
-      assert unquote(tokens) = Element.tokenize!(unquote(template))
+      assert unquote(tokens) == Element.tokenize!(unquote(template))
     end
   end
 
@@ -41,7 +41,7 @@ defmodule Jot.Lexer.ElementTest do
     ".x.y" ~> [
       dot:  '.',
       name: 'x',
-      dot:  _,
+      dot:  '.',
       name: 'y',
     ]
     ".WHAT-where__when" ~> [
@@ -77,16 +77,17 @@ defmodule Jot.Lexer.ElementTest do
   end
 
   test "attrs" do
-    ~s(a href="foo") ~> [
+    ~s[a(href="foo")] ~> [
       name:   'a',
-      ws:     ' ',
+      "(":    '(',
       name:   'href',
       eq:     '=',
       string: 'foo',
+      ")":    ')',
     ]
-    ~s(a class="button" href="/beep" Clicky) ~> [
+    ~s[a(class="button" href="/beep") Clicky] ~> [
       name:   'a',
-      ws:     ' ',
+      "(":    '(',
       name:   'class',
       eq:     '=',
       string: 'button',
@@ -94,6 +95,7 @@ defmodule Jot.Lexer.ElementTest do
       name:   'href',
       eq:     '=',
       string: '/beep',
+      ")":    ')',
       ws:     ' ',
       name:   'Clicky'
     ]

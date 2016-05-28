@@ -1,16 +1,34 @@
 Nonterminals
-element names id class classes text any content.
+element names id class classes text any content
+attributes attribute attributeList.
 
 Terminals
-name word dot hash string eq ws.
+'(' ')' name word dot hash string eq ws.
 
 Rootsymbol element.
+
+Expect 2.
 
 element -> names :
   #element{
     type  = '$1'#names.type,
     class = '$1'#names.class,
     id    = '$1'#names.id
+  }.
+element -> names attributeList :
+  #element{
+    type       = '$1'#names.type,
+    class      = '$1'#names.class,
+    id         = '$1'#names.id,
+    attributes = '$2'
+  }.
+element -> names attributeList content :
+  #element{
+    type       = '$1'#names.type,
+    class      = '$1'#names.class,
+    id         = '$1'#names.id,
+    attributes = '$2',
+    content    = '$3'
   }.
 element -> names content :
   #element{
@@ -40,6 +58,14 @@ class -> dot word : '$2'.
 id -> hash name : '$2'.
 id -> hash word : '$2'.
 
+attributeList -> '(' attributes ')' : '$2'.
+
+attributes -> attribute            : ['$1'].
+attributes -> attribute attributes : ['$1'|'$2'].
+
+attribute  -> name eq string    : {binV('$1'), binV('$3')}.
+attribute  -> ws name eq string : {binV('$2'), binV('$4')}.
+
 content -> ws      : list_to_binary(tl(v('$1'))).
 content -> ws text : binCat(list_to_binary(tl(v('$1'))), '$2').
 
@@ -53,6 +79,7 @@ any -> hash   : binV('$1').
 any -> eq     : binV('$1').
 any -> ws     : binV('$1').
 any -> string : binCat(<<"\"">>, binV('$1'), <<"\"">>).
+
 
 Erlang code.
 

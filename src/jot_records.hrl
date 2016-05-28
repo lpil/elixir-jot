@@ -10,11 +10,12 @@
 -record(
    element,
    {
-    type    = <<"div">>,
-    id      = <<>>,
-    class   = <<>>,
-    line    = 1,
-    content = ""
+    type       = <<"div">>,
+    id         = <<>>,
+    class      = <<>>,
+    line       = 1,
+    attributes = [],
+    content    = ""
    }
   ).
 

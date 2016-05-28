@@ -53,10 +53,22 @@ defmodule Jot.Parser.ElementTest do
     "blockquote #{text}" ~> element(type: "blockquote", content: text)
 
     text = ~S(They said "what?". With quotes. "". Like this -> ")
-    "h1 #{text}" ~> element(type: "h1", content: text)
+    "#sup #{text}" ~> element(id: "sup", content: text)
 
     text = " == !=== =:= Huh?"
-    "section #{text}" ~> element(type: "section", content: text)
+    ".foo #{text}" ~> element(class: "foo", content: text)
   end
 
+  test "elements with attributes" do
+    ~S[a(href="/")]      ~> element(type: "a", attributes: [{"href", "/"}])
+    ~S[div(a="1" b="2")] ~> element(attributes: [{"a", "1"}, {"b", "2"}])
+  end
+
+  test "elements with attributes and content" do
+    ~S[div(z="Z") ok] ~>
+      element(attributes: [{"z", "Z"}], content: "ok")
+
+    ~S[div(z="Z" l="p") Hi there!] ~>
+      element(attributes: [{"z", "Z"}, {"l", "p"}], content: "Hi there!")
+  end
 end
