@@ -21,7 +21,6 @@ defmodule Jot.Lines do
   end
 
 
-
   defp parse_indent(<< " "::utf8, t::binary >>, l, ls) do
     l = line(l, indent: line(l, :indent) + 1)
     parse_indent(t, l, ls)
@@ -34,7 +33,6 @@ defmodule Jot.Lines do
   defp parse_indent(content, l, ls) do
     parse_content(content, l, ls)
   end
-
 
 
   defp parse_content(<< "\n"::utf8, t::binary >>, l, ls) do
@@ -51,7 +49,6 @@ defmodule Jot.Lines do
     l = line(l, content: c)
     parse_content(t, l, ls)
   end
-
 
 
   defp add(ls, l) do

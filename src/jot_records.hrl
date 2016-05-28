@@ -6,3 +6,23 @@
     content = <<"">>
    }
   ).
+
+-record(
+   element,
+   {
+    type    = <<"div">>,
+    id      = <<>>,
+    class   = <<>>,
+    line    = 1,
+    content = ""
+   }
+  ).
+
+-record(
+   names,
+   {
+    type  = <<"div">>,
+    id    = <<>>,
+    class = <<>>
+   }
+  ).
