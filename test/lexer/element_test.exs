@@ -84,6 +84,19 @@ defmodule Jot.Lexer.ElementTest do
       eq:     '=',
       string: 'foo',
     ]
+    ~s(a class="button" href="/beep" Clicky) ~> [
+      name:   'a',
+      ws:     ' ',
+      name:   'class',
+      eq:     '=',
+      string: 'button',
+      ws:     ' ',
+      name:   'href',
+      eq:     '=',
+      string: '/beep',
+      ws:     ' ',
+      name:   'Clicky'
+    ]
   end
 
 end
