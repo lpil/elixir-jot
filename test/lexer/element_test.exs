@@ -98,5 +98,4 @@ defmodule Jot.Lexer.ElementTest do
       name:   'Clicky'
     ]
   end
-
 end

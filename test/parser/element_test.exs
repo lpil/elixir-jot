@@ -40,20 +40,23 @@ defmodule Jot.Parser.ElementTest do
     "#logo.super.rad" ~> element(id: "logo", class: "super rad")
   end
 
-  @tag :skip
   test "type, id, and classes" do
-
+    "thing#logo.big" ~> element(type: "thing", id: "logo", class: "big")
   end
 
-  @tag :skip
-  test "text with double quotes" do
-    text = 'They said "what?". With quotes. "". Like this -> "'
-    "h1 #{text}" ~> nil
+  test "elements with content" do
+    "p Hi"   ~> element(type: "p",  content: "Hi")
+    "h1  "   ~> element(type: "h1", content: " ")
+    "a b c!" ~> element(type: "a",  content: "b c!")
+
+    text = "The quick brown fox jumped over the lazy dog."
+    "blockquote #{text}" ~> element(type: "blockquote", content: text)
+
+    text = ~S(They said "what?". With quotes. "". Like this -> ")
+    "h1 #{text}" ~> element(type: "h1", content: text)
+
+    text = " == !=== =:= Huh?"
+    "section #{text}" ~> element(type: "section", content: text)
   end
 
-  @tag :skip
-  test "text with =" do
-    text = ' == !=== =:= Huh?'
-    "h1 #{text}" ~> nil
-  end
 end

@@ -6,7 +6,7 @@ String = "([^\\""]|\\.)*"
 Hash   = #
 EQ     = =
 WS     = [\s\t]+
-Word   = [^\t\s\n\.#""=]+
+Word   = [^\t\s\n\.#=]+
 
 Rules.
 
@@ -22,7 +22,7 @@ Erlang code.
 
 strValue(S) when is_list(S) ->
   Contents  = tl(lists:droplast(S)),
-  Unescaped = deescape(Contents).
+  deescape(Contents).
 
 deescape(S) when is_list(S) ->
   deescape(S, []).
