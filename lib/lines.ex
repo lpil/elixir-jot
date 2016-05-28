@@ -4,8 +4,8 @@ defmodule Jot.Lines do
   """
 
   require Record
-  import  Record, only: [defrecord: 2, extract: 2]
-  defrecord :line, extract(:line, from: "src/jot_records.hrl")
+  import  Record, only: [defrecordp: 2, extract: 2]
+  defrecordp :line, extract(:line, from: "src/jot_records.hrl")
 
   @doc """
   Split a template into lines for parsing.

@@ -2,7 +2,11 @@ defmodule Jot.LinesTest do
   use ExUnit.Case, async: true
   doctest Jot.Lines
   require Jot.Lines
-  import  Jot.Lines
+  import  Jot.Lines, only: [from_template: 1]
+
+  require Record
+  import  Record, only: [defrecordp: 2, extract: 2]
+  defrecordp :line, extract(:line, from: "src/jot_records.hrl")
 
   test "empty template" do
     assert from_template("") == []
