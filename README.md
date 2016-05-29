@@ -41,6 +41,16 @@ p Hi there
 <p>Hi there</p>
 ```
 
+The exception is for lines starting with a slash-bang (`/!`) which output HTML
+comments.
+
+```slim
+/! Stop viewing my source!
+```
+```html
+<!-- Stop viewing my source! -->
+```
+
 # LICENCE
 
 MIT Licence
