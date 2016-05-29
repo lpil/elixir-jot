@@ -27,11 +27,3 @@
     class = <<>>
    }
   ).
-
--record(
-   tree,
-   {
-    value    = nil,
-    children = []
-   }
-  ).

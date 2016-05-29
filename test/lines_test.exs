@@ -29,6 +29,7 @@ defmodule Jot.LinesTest do
   end
 
   test "multiple lines with indents" do
+
     assert """
         What?
     who?
