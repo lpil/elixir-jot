@@ -1,8 +1,8 @@
-defmodule Jot.LinesTest do
+defmodule Jot.LineTest do
   use ExUnit.Case, async: true
-  doctest Jot.Lines
-  require Jot.Lines
-  import  Jot.Lines, only: [from_template: 1]
+  doctest Jot.Line
+  require Jot.Line
+  import  Jot.Line, only: [from_template: 1]
 
   require Record
   import  Record, only: [defrecordp: 2, extract: 2]

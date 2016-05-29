@@ -1,4 +1,4 @@
-defmodule Jot.Lines do
+defmodule Jot.Line do
   @moduledoc """
   Responsible for splitting a Jot template into lines for parsing.
   """

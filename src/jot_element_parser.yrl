@@ -7,8 +7,6 @@ Terminals
 
 Rootsymbol element.
 
-Expect 2.
-
 element -> names :
   #element{
     type  = '$1'#names.type,
