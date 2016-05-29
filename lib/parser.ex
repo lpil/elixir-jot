@@ -3,7 +3,9 @@ defmodule Jot.Parser do
 
   @callback parse!(String.t) :: tuple()
 
-  alias __MODULE__, as: P
+
+  alias __MODULE__.Element
+  alias __MODULE__.Plain
 
   require Record
   import  Record, only: [defrecordp: 2, extract: 2]
@@ -19,11 +21,12 @@ defmodule Jot.Parser do
   end
 
 
-  defp parse_content(<<"|"::utf8, tail::binary>>) do
-    P.Plain.parse!(tail)
-  end
+  defp parse_content(<<"|"::utf8, tail::binary>>),
+    do: Plain.parse!(tail)
 
-  defp parse_content(content) do
-    P.Element.parse!(content)
-  end
+  defp parse_content(<<"/"::utf8, _::binary>>),
+    do: nil
+
+  defp parse_content(content),
+    do: Element.parse!(content)
 end

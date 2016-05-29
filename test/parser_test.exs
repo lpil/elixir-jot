@@ -12,13 +12,23 @@ defmodule ParserTest do
     end
   end
 
+  def l(content) do
+    line(content: content)
+  end
+
+
   test "element parsing" do
     line(content: "h1 Hi") ~> element(type: "h1", content: "Hi")
   end
 
   test "plain parsing" do
-    line(content: "| some plain value") ~> [plain: "some plain value"]
-    line(content: "|No space here")     ~> [plain: "No space here"]
-    line(content: "|   Spaces!")        ~> [plain: "  Spaces!"]
+    l("| some plain value") ~> [plain: "some plain value"]
+    l("|No space here")     ~> [plain: "No space here"]
+    l("|   Spaces!")        ~> [plain: "  Spaces!"]
+  end
+
+  test "comment parsing" do
+    l("/ This is a comment") ~> nil
+    l("// Still a comment")  ~> nil
   end
 end
