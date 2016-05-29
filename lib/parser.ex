@@ -5,6 +5,7 @@ defmodule Jot.Parser do
 
 
   alias __MODULE__.Element
+  alias __MODULE__.Comment
   alias __MODULE__.Plain
 
   require Record
@@ -24,8 +25,8 @@ defmodule Jot.Parser do
   defp parse_content(<<"|"::utf8, tail::binary>>),
     do: Plain.parse!(tail)
 
-  defp parse_content(<<"/"::utf8, _::binary>>),
-    do: nil
+  defp parse_content(<<"/"::utf8, tail::binary>>),
+    do: Comment.parse!(tail)
 
   defp parse_content(content),
     do: Element.parse!(content)

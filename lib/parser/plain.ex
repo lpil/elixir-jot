@@ -4,8 +4,8 @@ defmodule Jot.Parser.Plain do
   @behaviour Jot.Parser
 
   def parse!(<<" "::utf8, content::binary>>),
-    do: [plain: content]
+    do: content
 
   def parse!(content),
-    do: [plain: content]
+    do: content
 end

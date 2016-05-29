@@ -22,13 +22,17 @@ defmodule ParserTest do
   end
 
   test "plain parsing" do
-    l("| some plain value") ~> [plain: "some plain value"]
-    l("|No space here")     ~> [plain: "No space here"]
-    l("|   Spaces!")        ~> [plain: "  Spaces!"]
+    l("| some plain value") ~> "some plain value"
+    l("|No space here")     ~> "No space here"
+    l("|   Spaces!")        ~> "  Spaces!"
   end
 
   test "comment parsing" do
     l("/ This is a comment") ~> nil
     l("// Still a comment")  ~> nil
+  end
+
+  test "HTML comment parsing" do
+    l("/! Hello!") ~> "<!-- Hello! -->"
   end
 end
