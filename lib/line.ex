@@ -1,7 +1,5 @@
 defmodule Jot.Line do
-  @moduledoc """
-  Responsible for splitting a Jot template into lines for parsing.
-  """
+  @moduledoc false
 
   require Record
   import  Record, only: [defrecordp: 2, extract: 2]

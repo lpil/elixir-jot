@@ -1,8 +1,9 @@
 defmodule Jot.Lexer.Element do
-  @moduledoc """
+  @moduledoc false
+
+  @doc """
   Tokenizes an element template.
   """
-
   def tokenize!(template) when is_binary(template) do
     template |> to_char_list |> tokenize!
   end
