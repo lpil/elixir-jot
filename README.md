@@ -17,17 +17,28 @@ html(lang="en")
 
 ### Plain Text
 
-A line prefixed with a pipe character (`|`) will be treated as plain text.
+A line starting with a pipe character (`|`) will be treated as plain text.
 
 ```jade
 | Plain text can include <strong>html</strong>
 p
   | It must always be on its own line
 ```
-
 ```html
 Plain text can include <strong>html</strong>
 <p>It must always be on its own line</p>
+```
+
+### Comments
+
+A line starting with a slash (`/`) is a comment, and thus it outputs nothing.
+
+```slim
+p Hi there
+  / Can't see me!
+```
+```html
+<p>Hi there</p>
 ```
 
 # LICENCE
