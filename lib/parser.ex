@@ -13,9 +13,19 @@ defmodule Jot.Parser do
   defrecordp :line, extract(:line, from: "src/jot_records.hrl")
 
   @doc """
+  Parse a template into fragments.
+  """
+  def parse_template!(template) when is_binary(template) do
+    template
+    |> Jot.Line.from_template
+    |> Enum.map(&parse_line!/1)
+    |> Jot.HTML.expand_lines
+  end
+
+  @doc """
   Takes a line record and parses it using a parser suitable for the content.
   """
-  def parse!(record) when is_tuple(record) and elem(record, 0) == :line do
+  def parse_line!(record) when is_tuple(record) and elem(record, 0) == :line do
     record
     |> line(:content)
     |> parse_content()

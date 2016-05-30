@@ -6,14 +6,30 @@ defmodule ParserTest do
   defrecordp :line,    extract(:line,    from: "src/jot_records.hrl")
   defrecordp :element, extract(:element, from: "src/jot_records.hrl")
 
-  defmacro template ~> value do
+  defmacro template >>> value when is_binary(template) do
     quote do
-      assert unquote(value) == Jot.Parser.parse!(unquote(template))
+      assert unquote(value) == Jot.Parser.parse_template!(unquote(template))
+    end
+  end
+
+  defmacro line ~> value do
+    quote do
+      assert unquote(value) == Jot.Parser.parse_line!(unquote(line))
     end
   end
 
   def l(content) do
     line(content: content)
+  end
+
+  @tag :skip
+  test "template parsing" do
+    """
+    p
+      | Here is some text
+    """ >>> [
+      "<p>Here is some text</p>"
+    ]
   end
 
 
