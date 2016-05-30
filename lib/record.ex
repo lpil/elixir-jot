@@ -17,14 +17,14 @@ defmodule Jot.Record do
       quote do
         is_tuple(unquote(r))
         and elem(unquote(r), 0) == unquote(name)
-        and tuple_size(unquote(r)) == unquote(size)
+        and tuple_size(unquote(r)) == unquote(size) + 1
       end
     end
   end
 
   defmacro __using__([import: imports]) do
     macros = Enum.flat_map(imports, fn name ->
-      [{name, 0}, {name, 1}, {name, 2}]
+      [{name, 0}, {name, 1}, {name, 2}, {String.to_atom("is_#{name}"), 1}]
     end)
     quote do
       require unquote(__MODULE__)

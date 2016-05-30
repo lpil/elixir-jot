@@ -21,12 +21,6 @@ defmodule Jot.Parser do
   end
 
 
-  defmacro is_line(r) do
-    quote do
-      is_tuple(unquote(r)) and elem(unquote(r), 0) == :line
-    end
-  end
-
   @doc """
   Takes a line record and parses it using a parser suitable for the content.
   """
