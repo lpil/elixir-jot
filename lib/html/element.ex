@@ -13,7 +13,8 @@ end
 defimpl Jot.HTML.Chars, for: Jot.HTML.Element do
   def open_fragments(el) do
     attributes = format_attributes(el.attributes)
-    ["<#{el.type}#{attributes}>#{el.content}"]
+    fragments  = ["<#{el.type}"] ++ attributes ++ [">", el.content]
+    Jot.Fragment.consolidate_literals(fragments)
   end
 
   def close_fragments(%{ type: type }) do
@@ -22,9 +23,7 @@ defimpl Jot.HTML.Chars, for: Jot.HTML.Element do
 
 
   defp format_attributes(attrs) do
-    attrs
-    |> Enum.map(&format_attribute/1)
-    |> Enum.join("")
+    attrs |> Enum.map(&format_attribute/1)
   end
 
   defp format_attribute({name, value}) do

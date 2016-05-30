@@ -1,8 +1,6 @@
 defmodule Jot.Fragment do
   @moduledoc false
 
-  alias Jot.HTML.Text, as: T
-
   @doc """
   Take a list of HTML fragments and concat adjacent text components together.
   """
@@ -16,8 +14,11 @@ defmodule Jot.Fragment do
     acc
   end
 
-  defp consolidate([%T{} = first | [%T{} = second | tail]], acc) do
-    head = %T{ content: first.content <> second.content }
+  defp consolidate([first|[second|tail]], acc)
+  when is_binary(first)
+  and is_binary(second)
+  do
+    head = first <> second
     consolidate([head|tail], acc)
   end
 
