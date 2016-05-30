@@ -11,6 +11,7 @@ defmodule Jot.Mixfile do
       deps: deps,
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
+      consolidate_protocols: Mix.env != :test,
 
       name: "Jot",
       source_url: "https://github.com/lpil/jot",

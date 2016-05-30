@@ -8,16 +8,14 @@ defmodule Jot.HTML.Element do
             class:      "",
             id:         "",
             attributes: []
+end
 
-  use Jot.Record, import: [:element]
-
-  def open_fragments(el) do
-    type = element(el, :type)
+defimpl Jot.HTML.Chars, for: Jot.HTML.Element do
+  def open_fragments(%{ type: type }) do
     ["<#{type}>"]
   end
 
-  def close_fragments(el) do
-    type = element(el, :type)
+  def close_fragments(%{ type: type }) do
     ["</#{type}>"]
   end
 end

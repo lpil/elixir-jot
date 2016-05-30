@@ -1,29 +1,29 @@
 defmodule Jot.HTML do
+
+  defprotocol Chars do
+    def open_fragments(line)
+    def close_fragments(line)
+  end
+
   @moduledoc false
 
-  alias __MODULE__.Element
-
   def expand_lines(lines) when is_list(lines) do
-    lines |> expand() |> Enum.reverse
+    lines |> expand() |> List.flatten |> Enum.reverse
   end
 
 
-  defp expand(lines, open_tags \\ [], current_depth \\ 0, acc \\ [])
+  defp expand(lines, open_tags \\ [], acc \\ [])
 
-  defp expand([h|t], open, depth, acc) when is_binary(h) do
-    expand(t, open, depth, [h|acc])
+  defp expand([h|t], open, acc) do
+    frags = Chars.open_fragments(h)
+    expand(t, [h|open], [frags|acc])
   end
 
-  defp expand([h|t], open, depth, acc) when is_tuple(h) do
-    frags = Element.open_fragments(h)
-    expand(t, [h|open], depth, frags ++ acc)
+  defp expand([], [h|t], acc) do
+    frags = Chars.close_fragments(h)
+    expand([], t, [frags|acc])
   end
 
-  defp expand([], [h|t], depth, acc) when is_tuple(h) do
-    frags = Element.close_fragments(h)
-    expand([], t, depth, frags ++ acc)
-  end
-
-  defp expand([], [], _, acc),
+  defp expand([], [], acc),
     do: acc
 end
