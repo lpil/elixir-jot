@@ -1,15 +1,15 @@
-defprotocol Jot.HTML.Chars do
-  def open_fragments(line)
-  def close_fragments(line)
-end
-
 defmodule Jot.HTML do
   @moduledoc false
 
   alias Jot.HTML.Chars
+  alias Jot.Fragment
 
   def expand_lines(lines) when is_list(lines) do
-    lines |> expand() |> List.flatten |> Enum.reverse
+    lines
+    |> expand()
+    |> List.flatten
+    |> Enum.reverse
+    |> Fragment.consolidate_literals
   end
 
 

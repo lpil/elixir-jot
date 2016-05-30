@@ -16,13 +16,17 @@ defmodule Jot.HTMLTest do
     [
       %Text{ content: "hello " },
       %Text{ content: "world!" },
-    ] ~> ["hello ", "world!"]
+    ] ~> [
+      "hello world!",
+    ]
   end
 
   test "plain tag" do
     [
       %Element{ type: "h1" },
-    ] ~> ["<h1>", "</h1>"]
+    ] ~> [
+      "<h1></h1>",
+    ]
   end
 
   test "tags with attributes" do
@@ -31,7 +35,7 @@ defmodule Jot.HTMLTest do
         type: "h1",
         attributes: [{"name", "Angus"}, {"class", "bold"}]
       },
-    ] ~> [~S(<h1 name="Angus" class="bold">), "</h1>"]
+    ] ~> [~S(<h1 name="Angus" class="bold"></h1>)]
   end
 
   test "plain tags with content" do
@@ -39,8 +43,7 @@ defmodule Jot.HTMLTest do
       %Element{ type: "small", content: "ATTENTION!" },
       %Element{ type: "blockquote", content: "huh?" },
     ] ~> [
-      "<small>ATTENTION!", "</small>",
-      "<blockquote>huh?", "</blockquote>"
+      "<small>ATTENTION!</small><blockquote>huh?</blockquote>",
     ]
   end
 
@@ -49,7 +52,9 @@ defmodule Jot.HTMLTest do
       %Element{ type: "h1" },
       %Element{ type: "h2" },
       %Element{ type: "h3" },
-    ] ~> ["<h1>", "</h1>", "<h2>", "</h2>", "<h3>", "</h3>"]
+    ] ~> [
+      "<h1></h1><h2></h2><h3></h3>",
+    ]
   end
 
   test "nested tags" do
@@ -59,8 +64,7 @@ defmodule Jot.HTMLTest do
       %Text{ indent: 2, content: "Nice nesting" },
       %Element{ type: "div", indent: 0 },
     ] ~> [
-      "<h1> ", "<h2>", "Nice nesting", "</h2>", "</h1>",
-      "<div>", "</div>"
+      "<h1> <h2>Nice nesting</h2></h1><div></div>",
     ]
   end
 end

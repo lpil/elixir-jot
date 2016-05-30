@@ -13,7 +13,7 @@ end
 defimpl Jot.HTML.Chars, for: Jot.HTML.Element do
   def open_fragments(el) do
     attributes = format_attributes(el.attributes)
-    fragments  = ["<#{el.type}"] ++ attributes ++ [">", el.content]
+    fragments  = ["<#{el.type}"| attributes] ++ [">", el.content]
     Jot.Fragment.consolidate_literals(fragments)
   end
 
