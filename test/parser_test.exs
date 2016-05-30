@@ -1,6 +1,8 @@
 defmodule ParserTest do
   use ExUnit.Case, async: true
 
+  alias Jot.HTML.Element
+
   require Record
   import  Record, only: [defrecordp: 2, extract: 2]
   defrecordp :line,    extract(:line,    from: "src/jot_records.hrl")
@@ -34,7 +36,15 @@ defmodule ParserTest do
 
 
   test "element parsing" do
-    line(content: "h1 Hi") ~> element(type: "h1", content: "Hi")
+    line(
+      content: ~s[h1(style="") Hi], pos: 5, indent: 3
+    ) ~> %Element{
+      type:    "h1",
+      line:    5,
+      indent:  3,
+      content: "Hi",
+      attributes: [{"style", ""}],
+    }
   end
 
   test "plain parsing" do
@@ -44,8 +54,8 @@ defmodule ParserTest do
   end
 
   test "comment parsing" do
-    l("/ This is a comment") ~> nil
-    l("// Still a comment")  ~> nil
+    l("/ This is a comment") ~> ""
+    l("// Still a comment")  ~> ""
   end
 
   test "HTML comment parsing" do

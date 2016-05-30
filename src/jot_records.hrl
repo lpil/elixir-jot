@@ -15,7 +15,7 @@
     class      = <<>>,
     line       = 1,
     attributes = [],
-    content    = ""
+    content    = <<"">>
    }
   ).
 

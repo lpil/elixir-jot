@@ -1,7 +1,7 @@
 defmodule Jot.Parser do
   @moduledoc false
 
-  @callback parse!(String.t) :: tuple()
+  @callback parse!(tuple()) :: struct()
 
 
   alias __MODULE__.Element
@@ -26,18 +26,17 @@ defmodule Jot.Parser do
   Takes a line record and parses it using a parser suitable for the content.
   """
   def parse_line!(record) when is_tuple(record) and elem(record, 0) == :line do
-    record
-    |> line(:content)
-    |> parse_content()
+    case line(record, :content) do
+
+      <<"|"::utf8, tail::binary>> ->
+        Plain.parse!(record)
+
+      <<"/"::utf8, tail::binary>> ->
+        Comment.parse!(record)
+
+      _ ->
+        Element.parse!(record)
+
+    end
   end
-
-
-  defp parse_content(<<"|"::utf8, tail::binary>>),
-    do: Plain.parse!(tail)
-
-  defp parse_content(<<"/"::utf8, tail::binary>>),
-    do: Comment.parse!(tail)
-
-  defp parse_content(content),
-    do: Element.parse!(content)
 end
