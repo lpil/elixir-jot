@@ -3,9 +3,11 @@ defmodule Jot.Parser.Plain do
 
   @behaviour Jot.Parser
 
-  def parse!(<<"| "::utf8, content::binary>>, _line, _indent),
-    do: content
+  alias Jot.HTML.Text
 
-  def parse!(<<"|"::utf8, content::binary>>, _line, _indent),
-    do: content
+  def parse!(<<"| "::utf8, content::binary>>, line, indent),
+    do: %Text{ line: line, indent: indent, content: content }
+
+  def parse!(<<"|"::utf8, content::binary>>, line, indent),
+    do: %Text{ line: line, indent: indent, content: content }
 end

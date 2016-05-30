@@ -1,11 +1,12 @@
+defprotocol Jot.HTML.Chars do
+  def open_fragments(line)
+  def close_fragments(line)
+end
+
 defmodule Jot.HTML do
-
-  defprotocol Chars do
-    def open_fragments(line)
-    def close_fragments(line)
-  end
-
   @moduledoc false
+
+  alias Jot.HTML.Chars
 
   def expand_lines(lines) when is_list(lines) do
     lines |> expand() |> List.flatten |> Enum.reverse
@@ -14,16 +15,33 @@ defmodule Jot.HTML do
 
   defp expand(lines, open_tags \\ [], acc \\ [])
 
-  defp expand([h|t], open, acc) do
+  defp expand([next|_] = lines, [prev|_] = open, acc) do
+    if next.indent > prev.indent do
+      push_open(lines, open, acc)
+    else
+      pop_open(lines, open, acc)
+    end
+  end
+
+  defp expand([_|_] = lines, [], acc),
+    do: push_open(lines, [], acc)
+
+  defp expand([], [_|_] = open, acc),
+    do: pop_open([], open, acc)
+
+  defp expand([], [],acc),
+    do: acc
+
+
+  defp push_open(lines, open, acc)
+
+  defp push_open([h|t], open, acc) do
     frags = Chars.open_fragments(h)
     expand(t, [h|open], [frags|acc])
   end
 
-  defp expand([], [h|t], acc) do
+  defp pop_open(lines, [h|t], acc) do
     frags = Chars.close_fragments(h)
-    expand([], t, [frags|acc])
+    expand(lines, t, [frags|acc])
   end
-
-  defp expand([], [], acc),
-    do: acc
 end

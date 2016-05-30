@@ -1,7 +1,9 @@
 defmodule Jot.HTMLTest do
   use   ExUnit.Case, async: true
   use   Jot.Record,  import: [:element]
+
   alias Jot.HTML.Element
+  alias Jot.HTML.Text
 
   defmacro lines ~> fragments do
     quote do
@@ -10,8 +12,14 @@ defmodule Jot.HTMLTest do
   end
 
 
-  test "strings are not expanded" do
-    ["hello", "world"] ~> ["hello", "world"]
+  test "text is reduced to content" do
+    [
+      %Text{ content: "hello" },
+      %Text{ content: "world" },
+    ] ~> [
+      "hello",
+      "world",
+    ]
   end
 
   test "plain tag" do
@@ -22,8 +30,7 @@ defmodule Jot.HTMLTest do
     ]
   end
 
-  @tag :skip
-  test "multiple plain tags" do
+  test "adjacent plain tags" do
     [
       %Element{ type: "h1" },
       %Element{ type: "h2" },

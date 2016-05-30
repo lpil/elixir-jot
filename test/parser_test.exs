@@ -2,6 +2,7 @@ defmodule ParserTest do
   use ExUnit.Case, async: true
 
   alias Jot.HTML.Element
+  alias Jot.HTML.Text
 
   use Jot.Record, import: [:element, :line]
 
@@ -45,17 +46,17 @@ defmodule ParserTest do
   end
 
   test "plain parsing" do
-    l("| some plain value") ~> "some plain value"
-    l("|No space here")     ~> "No space here"
-    l("|   Spaces!")        ~> "  Spaces!"
+    l("| some plain value") ~> %Text{ content: "some plain value" }
+    l("|No space here")     ~> %Text{ content: "No space here" }
+    l("|   Spaces!")        ~> %Text{ content: "  Spaces!" }
   end
 
   test "comment parsing" do
-    l("/ This is a comment") ~> ""
-    l("// Still a comment")  ~> ""
+    l("/ This is a comment") ~> %Text{ content: "" }
+    l("// Still a comment")  ~> %Text{ content: "" }
   end
 
   test "HTML comment parsing" do
-    l("/! Hello!") ~> "<!-- Hello! -->"
+    l("/! Hello!") ~> %Text{ content: "<!-- Hello! -->" }
   end
 end
