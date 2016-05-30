@@ -9,11 +9,9 @@ defmodule Jot.Parser.ElementTest do
   defrecord :element, extract(:element, from: "src/jot_records.hrl")
   defrecord :line,    extract(:line,    from: "src/jot_records.hrl")
 
-  defmacro template ~> element do
+  defmacro template ~> el do
     quote do
-      assert unquote(element) == (
-       line(content: unquote(template)) |> Parser.Element.parse!()
-     )
+      assert unquote(el) == Parser.Element.parse!(unquote(template), 1, 0)
     end
   end
 

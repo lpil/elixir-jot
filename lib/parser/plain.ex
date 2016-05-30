@@ -3,17 +3,9 @@ defmodule Jot.Parser.Plain do
 
   @behaviour Jot.Parser
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :line, extract(:line, from: "src/jot_records.hrl")
-
-  def parse!(record) when is_tuple(record) do
-    record |> line(:content) |> parse!()
-  end
-
-  def parse!(<<"| "::utf8, content::binary>>),
+  def parse!(<<"| "::utf8, content::binary>>, _line, _indent),
     do: content
 
-  def parse!(<<"|"::utf8, content::binary>>),
+  def parse!(<<"|"::utf8, content::binary>>, _line, _indent),
     do: content
 end

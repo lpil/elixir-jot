@@ -3,21 +3,13 @@ defmodule Jot.Parser.Comment do
 
   @behaviour Jot.Parser
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :line, extract(:line, from: "src/jot_records.hrl")
-
-  def parse!(record) when is_tuple(record) do
-    record |> line(:content) |> parse!()
-  end
-
-  def parse!(<<"/! "::utf8, t::binary>>),
+  def parse!(<<"/! "::utf8, t::binary>>, _line, _indent),
     do: html_comment(t)
 
-  def parse!(<<"/!"::utf8, t::binary>>),
+  def parse!(<<"/!"::utf8, t::binary>>, _line, _indent),
     do: html_comment(t)
 
-  def parse!(_),
+  def parse!(_, _, _),
     do: ""
 
 

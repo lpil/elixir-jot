@@ -11,10 +11,9 @@ defmodule Jot.Parser.Element do
   @doc """
   Parse a line containing an template HTML element into a data structure.
   """
-  def parse!(l) when is_tuple(l) do
+  def parse!(template, line, indent) when is_binary(template) do
     {:ok, el} =
-      l
-      |> line(:content)
+      template
       |> Jot.Lexer.Element.tokenize!()
       |> :jot_element_parser.parse()
     %Jot.HTML.Element{
@@ -23,8 +22,8 @@ defmodule Jot.Parser.Element do
       content:    element(el, :content),
       class:      element(el, :class),
       id:         element(el, :id),
-      indent:     line(l, :indent),
-      line:       line(l, :pos),
+      indent:     indent,
+      line:       line,
     }
   end
 end
