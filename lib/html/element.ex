@@ -11,8 +11,8 @@ defmodule Jot.HTML.Element do
 end
 
 defimpl Jot.HTML.Chars, for: Jot.HTML.Element do
-  def open_fragments(%{ type: type }) do
-    ["<#{type}>"]
+  def open_fragments(%{ type: type, content: content }) do
+    ["<#{type}>#{content}"]
   end
 
   def close_fragments(%{ type: type }) do

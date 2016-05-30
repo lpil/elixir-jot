@@ -46,9 +46,9 @@ defmodule ParserTest do
   end
 
   test "plain parsing" do
-    l("| some plain value") ~> %Text{ content: "some plain value" }
+    l("| some plain value") ~> %Text{ content: " some plain value" }
     l("|No space here")     ~> %Text{ content: "No space here" }
-    l("|   Spaces!")        ~> %Text{ content: "  Spaces!" }
+    l("|   Spaces!")        ~> %Text{ content: "   Spaces!" }
   end
 
   test "comment parsing" do
