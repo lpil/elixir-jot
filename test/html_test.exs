@@ -25,6 +25,15 @@ defmodule Jot.HTMLTest do
     ] ~> ["<h1>", "</h1>"]
   end
 
+  test "tags with attributes" do
+    [
+      %Element{
+        type: "h1",
+        attributes: [{"name", "Angus"}, {"class", "bold"}]
+      },
+    ] ~> [~S(<h1 name="Angus" class="bold">), "</h1>"]
+  end
+
   test "plain tags with content" do
     [
       %Element{ type: "small", content: "ATTENTION!" },
