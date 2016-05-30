@@ -22,7 +22,9 @@ defimpl Jot.HTML.Chars, for: Jot.HTML.Element do
 
 
   defp format_attributes(attrs) do
-    Enum.map(attrs, &format_attribute/1)
+    attrs
+    |> Enum.map(&format_attribute/1)
+    |> Enum.join("")
   end
 
   defp format_attribute({name, value}) do
