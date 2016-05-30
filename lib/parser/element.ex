@@ -3,10 +3,7 @@ defmodule Jot.Parser.Element do
 
   @behaviour Jot.Parser
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :line,    extract(:line,    from: "src/jot_records.hrl")
-  defrecordp :element, extract(:element, from: "src/jot_records.hrl")
+  use Jot.Record, import: [:element, :line]
 
   @doc """
   Parse a line containing an template HTML element into a data structure.

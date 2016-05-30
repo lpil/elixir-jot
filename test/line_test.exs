@@ -4,9 +4,7 @@ defmodule Jot.LineTest do
   require Jot.Line
   import  Jot.Line, only: [from_template: 1]
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :line, extract(:line, from: "src/jot_records.hrl")
+  use Jot.Record, import: [:line]
 
   test "empty template" do
     assert from_template("") == []

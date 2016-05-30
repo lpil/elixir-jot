@@ -3,10 +3,7 @@ defmodule ParserTest do
 
   alias Jot.HTML.Element
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :line,    extract(:line,    from: "src/jot_records.hrl")
-  defrecordp :element, extract(:element, from: "src/jot_records.hrl")
+  use Jot.Record, import: [:element, :line]
 
   defmacro template >>> value when is_binary(template) do
     quote do

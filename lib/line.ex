@@ -1,9 +1,7 @@
 defmodule Jot.Line do
   @moduledoc false
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :line, extract(:line, from: "src/jot_records.hrl")
+  use Jot.Record, import: [:line]
 
   @doc """
   Split a template into lines for parsing.

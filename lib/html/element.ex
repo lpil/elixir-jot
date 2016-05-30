@@ -9,9 +9,7 @@ defmodule Jot.HTML.Element do
             id:         "",
             attributes: []
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :element, extract(:element, from: "src/jot_records.hrl")
+  use Jot.Record, import: [:element]
 
   def open_fragments(el) do
     type = element(el, :type)

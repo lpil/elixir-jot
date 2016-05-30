@@ -7,9 +7,7 @@ defmodule Jot.HTMLTest do
     end
   end
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :element, extract(:element, from: "src/jot_records.hrl")
+  use Jot.Record, import: [:element]
 
   test "strings are not expanded" do
     ["hello", "world"] ~> ["hello", "world"]

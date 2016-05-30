@@ -8,9 +8,7 @@ defmodule Jot.Parser do
   alias __MODULE__.Comment
   alias __MODULE__.Plain
 
-  require Record
-  import  Record, only: [defrecordp: 2, extract: 2]
-  defrecordp :line, extract(:line, from: "src/jot_records.hrl")
+  use Jot.Record, import: [:line]
 
   @doc """
   Parse a template into fragments.
@@ -22,14 +20,21 @@ defmodule Jot.Parser do
     |> Jot.HTML.expand_lines
   end
 
+
+  defmacro is_line(r) do
+    quote do
+      is_tuple(unquote(r)) and elem(unquote(r), 0) == :line
+    end
+  end
+
   @doc """
   Takes a line record and parses it using a parser suitable for the content.
   """
-  def parse_line!(record) when is_tuple(record) and elem(record, 0) == :line do
+  def parse_line!(record) when is_line(record) do
     type = case line(record, :content) do
-      <<"|"::utf8, tail::binary>> -> Plain
-      <<"/"::utf8, tail::binary>> -> Comment
-      _                           -> Element
+      <<"|"::utf8, _::binary>> -> Plain
+      <<"/"::utf8, _::binary>> -> Comment
+      _                        -> Element
     end
     type.parse!(
       line(record, :content),

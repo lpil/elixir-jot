@@ -4,10 +4,7 @@ defmodule Jot.Parser.ElementTest do
   alias Jot.Parser
   alias Jot.HTML.Element
 
-  require Record
-  import  Record, only: [defrecord: 2, extract: 2]
-  defrecord :element, extract(:element, from: "src/jot_records.hrl")
-  defrecord :line,    extract(:line,    from: "src/jot_records.hrl")
+  use Jot.Record, import: [:element, :line]
 
   defmacro template ~> el do
     quote do
