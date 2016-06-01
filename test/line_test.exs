@@ -38,7 +38,6 @@ defmodule Jot.LineTest do
     ]
   end
 
-  @tag :skip
   test "line continuation" do
     assert """
     what on\\

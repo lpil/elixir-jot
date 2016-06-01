@@ -36,6 +36,10 @@ defmodule Jot.Line do
 
   defp parse_content(content, line, next_pos, acc)
 
+  defp parse_content(<< "\\\n"::utf8, t::binary >>, line, next_pos, acc) do
+    parse_content(t, line, next_pos + 1, acc)
+  end
+
   defp parse_content(<< "\n"::utf8, t::binary >>, line, next_pos, acc) do
     next_line = line(pos: next_pos)
     acc       = add(acc, line)
