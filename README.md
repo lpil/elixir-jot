@@ -51,6 +51,20 @@ comments.
 <!-- Stop viewing my source! -->
 ```
 
+### Line Continuations
+
+If you feel the need to wrap content onto another line you can end the line
+with the backslash character (`\`) to make the Jot compiler discard the
+newline.
+
+```slim
+p One line, \
+two lines!
+```
+```html
+<p>One line, two lines!</p>
+```
+
 # LICENCE
 
 MIT Licence
