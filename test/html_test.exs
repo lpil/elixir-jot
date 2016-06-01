@@ -29,15 +29,38 @@ defmodule Jot.HTMLTest do
     ]
   end
 
-  test "id tag" do
+  test "id" do
     [
       %Element{ id: "main" },
     ] ~> [
       ~S(<div id="main"></div>),
     ]
+    [
+      %Element{ attributes: [{"id", "main"}] },
+    ] ~> [
+      ~S(<div id="main"></div>),
+    ]
   end
 
-  test "tags with attributes" do
+  test "classes" do
+    [
+      %Element{ class: "wide" },
+    ] ~> [
+      ~S(<div class="wide"></div>),
+    ]
+    [
+      %Element{ class: "wide", attributes: [{"class", "big small"}] },
+    ] ~> [
+      ~S(<div class="wide big small"></div>),
+    ]
+    [
+      %Element{ attributes: [{"class", "big small"}] },
+    ] ~> [
+      ~S(<div class="big small"></div>),
+    ]
+  end
+
+  test "attributes" do
     [
       %Element{
         type: "h1",
@@ -46,7 +69,7 @@ defmodule Jot.HTMLTest do
     ] ~> [~S(<h1 name="Angus" class="bold"></h1>)]
   end
 
-  test "plain tags with content" do
+  test "content" do
     [
       %Element{ type: "small", content: "ATTENTION!" },
       %Element{ type: "blockquote", content: "huh?" },
