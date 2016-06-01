@@ -29,6 +29,14 @@ defmodule Jot.HTMLTest do
     ]
   end
 
+  test "id tag" do
+    [
+      %Element{ id: "main" },
+    ] ~> [
+      ~S(<div id="main"></div>),
+    ]
+  end
+
   test "tags with attributes" do
     [
       %Element{

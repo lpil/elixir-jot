@@ -11,8 +11,8 @@
    element,
    {
     type       = <<"div">>,
-    id         = <<>>,
-    class      = <<>>,
+    id         = nil,
+    class      = nil,
     line       = 1,
     attributes = [],
     content    = <<"">>
@@ -23,7 +23,7 @@
    names,
    {
     type  = <<"div">>,
-    id    = <<>>,
-    class = <<>>
+    id    = nil,
+    class = nil
    }
   ).
