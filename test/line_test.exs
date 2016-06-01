@@ -27,7 +27,6 @@ defmodule Jot.LineTest do
   end
 
   test "multiple lines with indents" do
-
     assert """
         What?
     who?
@@ -36,6 +35,18 @@ defmodule Jot.LineTest do
       line(indent: 4, pos: 1, content: "What?"),
       line(indent: 0, pos: 2, content: "who?"),
       line(indent: 9, pos: 3, content: "Slim Shady."),
+    ]
+  end
+
+  @tag :skip
+  test "line continuation" do
+    assert """
+    what on\\
+        earth
+    is that?
+    """ |> from_template == [
+      line(indent: 0, pos: 1, content: "what on    earth"),
+      line(indent: 0, pos: 3, content: "is that?"),
     ]
   end
 end

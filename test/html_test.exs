@@ -78,7 +78,7 @@ defmodule Jot.HTMLTest do
     ]
   end
 
-  test "adjacent plain tags" do
+  test "adjacent tags" do
     [
       %Element{ type: "h1" },
       %Element{ type: "h2" },
@@ -88,7 +88,7 @@ defmodule Jot.HTMLTest do
     ]
   end
 
-  test "nested tags" do
+  test "nesting" do
     [
       %Element{ type: "h1", indent: 0, content: " " },
       %Element{ type: "h2", indent: 1 },

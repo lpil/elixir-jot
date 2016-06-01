@@ -17,40 +17,46 @@ defmodule Jot.Line do
   end
 
 
-  defp parse_indent(<< " "::utf8, t::binary >>, l, ls) do
-    l = line(l, indent: line(l, :indent) + 1)
-    parse_indent(t, l, ls)
+  defp parse_indent(content, line, acc)
+
+  defp parse_indent(<< " "::utf8, t::binary >>, line, acc) do
+    indent = line(line, :indent) + 1
+    line   = line(line, indent: indent)
+    parse_indent(t, line, acc)
   end
 
-  defp parse_indent("", l, ls) do
-    parse_content("", l, ls)
+  defp parse_indent("", line, acc) do
+    parse_content("", line, acc)
   end
 
-  defp parse_indent(content, l, ls) do
-    parse_content(content, l, ls)
-  end
-
-
-  defp parse_content(<< "\n"::utf8, t::binary >>, l, ls) do
-    n = line(pos: line(l, :pos) + 1)
-    parse_indent(t, n, ls |> add(l))
-  end
-
-  defp parse_content("", l, ls) do
-    ls |> add(l)
-  end
-
-  defp parse_content(<< h::utf8, t::binary >>, l, ls) do
-    c = line(l, :content) <> <<h>>
-    l = line(l, content: c)
-    parse_content(t, l, ls)
+  defp parse_indent(content, line, acc) do
+    parse_content(content, line, acc)
   end
 
 
-  defp add(ls, l) do
-    case line(l, :content) do
-      "" -> ls
-      _  -> [l|ls]
+  defp parse_content(content, line, acc)
+
+  defp parse_content(<< "\n"::utf8, t::binary >>, line, acc) do
+    n   = line(pos: line(line, :pos) + 1)
+    acc = add(acc, line)
+    parse_indent(t, n, acc)
+  end
+
+  defp parse_content("", line, acc) do
+    add(acc, line)
+  end
+
+  defp parse_content(<< h::utf8, t::binary >>, line, acc) do
+    content  = line(line, :content) <> <<h>>
+    new_line = line(line, content: content)
+    parse_content(t, new_line, acc)
+  end
+
+
+  defp add(acc, line) do
+    case line(line, :content) do
+      "" -> acc
+      _  -> [line|acc]
     end
   end
 end
