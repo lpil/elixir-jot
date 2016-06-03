@@ -5,19 +5,29 @@ defmodule JotTest do
   defmacro template >>> output do
     quote do
       html     = unquote(template) |> Jot.eval_string
-      expected = unquote(output) |> String.replace("\n", "")
+      expected =
+        unquote(output)
+        |> String.replace(~r/^[ ]+/m, "")
+        |> String.replace("\n", "")
       assert html == expected
     end
   end
 
-  test "eval_string/3" do
+  test "big messy integration template" do
     """
     - x = " world!"
     #greeting(class="big") Hello
       i
         = x
+    div
+      p This is all very
+        = " "
+        = :cool
     """ >>> """
     <div id="greeting" class="big">Hello<i> world!</i></div>
+    <div>
+      <p>This is all very cool</p>
+    </div>
     """
   end
 end
