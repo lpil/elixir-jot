@@ -9,7 +9,7 @@ end
 
 defimpl Jot.HTML.Chars, for: Jot.HTML.Code do
   def open_fragments(el) do
-    []
+    el
   end
 
   def close_fragments(_) do

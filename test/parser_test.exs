@@ -78,12 +78,12 @@ defmodule ParserTest do
     line(
       content: "- IO.puts :foo", pos: 8, indent: 4
     ) ~> %Code{
-      marker:  "-",
+      marker:  "",
       line:    8,
       indent:  4,
       content: "IO.puts :foo",
     }
-    l("-1")  ~> %Code{ marker: "-", content: "1" }
-    l("- 1") ~> %Code{ marker: "-", content: "1" }
+    l("-1")  ~> %Code{ marker: "", content: "1" }
+    l("- 1") ~> %Code{ marker: "", content: "1" }
   end
 end

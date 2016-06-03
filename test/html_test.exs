@@ -4,6 +4,7 @@ defmodule Jot.HTMLTest do
 
   alias Jot.HTML.Element
   alias Jot.HTML.Text
+  alias Jot.HTML.Code
 
   defmacro lines ~> fragments do
     quote do
@@ -104,6 +105,17 @@ defmodule Jot.HTMLTest do
       %Element{ type: "div", indent: 0 },
     ] ~> [
       "<h1> <h2>Nice nesting</h2></h1><div></div>",
+    ]
+  end
+
+  test "code" do
+    [
+      %Element{ type: "h1", indent: 0, },
+      %Code{ marker: "=", indent: 2, content: "get_title()" },
+    ] ~> [
+      "<h1>",
+      %Code{ marker: "=", indent: 2, content: "get_title()" },
+      "</h1>",
     ]
   end
 end

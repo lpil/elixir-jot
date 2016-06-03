@@ -13,10 +13,10 @@ defmodule Jot.Parser.Code do
   end
 
   def parse!(<<"- "::utf8, t::binary>>, line, indent) do
-    %Code{ content: t, marker: "-", line: line, indent: indent }
+    %Code{ content: t, marker: "", line: line, indent: indent }
   end
 
   def parse!(<<"-"::utf8, t::binary>>, line, indent) do
-    %Code{ content: t, marker: "-", line: line, indent: indent }
+    %Code{ content: t, marker: "", line: line, indent: indent }
   end
 end
