@@ -13,6 +13,10 @@ defmodule JotTest do
     end
   end
 
+  test "compile_string/2" do
+    assert {:<>, _, ["", "<h1>Hi</h1>"]} = Jot.compile_string("h1 Hi")
+  end
+
   test "big messy integration template" do
     """
     - x = " world!"
