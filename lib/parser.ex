@@ -4,8 +4,9 @@ defmodule Jot.Parser do
   @callback parse!(String.t, pos_integer, pos_integer) :: struct()
 
 
-  alias __MODULE__.Element
+  alias __MODULE__.Code
   alias __MODULE__.Comment
+  alias __MODULE__.Element
   alias __MODULE__.Plain
 
   use Jot.Record, import: [:line]
@@ -28,6 +29,7 @@ defmodule Jot.Parser do
     type = case line(record, :content) do
       <<"|"::utf8, _::binary>> -> Plain
       <<"/"::utf8, _::binary>> -> Comment
+      <<"="::utf8, _::binary>> -> Code
       _                        -> Element
     end
     type.parse!(

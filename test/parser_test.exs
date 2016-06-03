@@ -3,6 +3,7 @@ defmodule ParserTest do
 
   alias Jot.HTML.Element
   alias Jot.HTML.Text
+  alias Jot.HTML.Code
 
   use Jot.Record, import: [:element, :line]
 
@@ -58,5 +59,16 @@ defmodule ParserTest do
 
   test "HTML comment parsing" do
     l("/! Hello!") ~> %Text{ content: "<!-- Hello! -->" }
+  end
+
+  test "Elixir expression parsing" do
+    line(
+      content: "= Enum.join([1, 2])", pos: 2, indent: 3
+    ) ~> %Code{
+      marker:  "=",
+      line:    2,
+      indent:  3,
+      content: "Enum.join([1, 2])",
+    }
   end
 end

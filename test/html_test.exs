@@ -67,6 +67,14 @@ defmodule Jot.HTMLTest do
         attributes: [{"name", "Angus"}, {"class", "bold"}]
       },
     ] ~> [~S(<h1 name="Angus" class="bold"></h1>)]
+    [
+      %Element{
+        type: "a",
+        class: "b",
+        id: "z",
+        attributes: [{"href", "/"}, {"class", "c"}]
+      },
+    ] ~> [~S(<a id="z" href="/" class="b c"></a>)]
   end
 
   test "content" do
