@@ -23,11 +23,10 @@ defmodule ParserTest do
     line(content: content)
   end
 
-  @tag :skip
   test "template parsing" do
     """
-    p
-      | Here is some text
+    p Here is
+      | some text
     """ >>> [
       "<p>Here is some text</p>"
     ]

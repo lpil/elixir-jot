@@ -20,13 +20,12 @@ html(lang="en")
 A line starting with a pipe character (`|`) will be treated as plain text.
 
 ```jade
-| Plain text can include <strong>html</strong>
-p
-  | It must always be on its own line
+p Plain text must always be
+  | on its own line, and it can include
+  | inline <strong>html</strong>.
 ```
 ```html
-Plain text can include <strong>html</strong>
-<p>It must always be on its own line</p>
+<p>Plain text must always be on its own line, and it can include inline <strong>html</strong>.</p>
 ```
 
 
@@ -51,7 +50,7 @@ contents evaluated, and the return value will be inserted into the template.
 
 ```slim
 h1
-  = "Hello "
+  = "Hello"
   | world!
 ```
 ```html
