@@ -71,10 +71,22 @@ defmodule Jot do
   """
 
 
+  @doc """
+  Takes a Jot template string and returns a quoted expression
+  that can be evaluated by Elixir, or compiled to a function.
+  """
   def compile_string(template, opts \\ []) when is_binary(template) do
     Jot.Compiler.compile(template, opts)
   end
 
+  @doc """
+  Takes a Jot template string and evaluate it using the `bindings`.
+
+  ## Examples
+
+      iex> Jot.eval_string("= bar", [bar: "baz"])
+      "baz"
+  """
   def eval_string(template, bindings \\ [], opts \\ []) do
     template
     |> compile_string(opts)
