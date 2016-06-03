@@ -29,6 +29,36 @@ Plain text can include <strong>html</strong>
 <p>It must always be on its own line</p>
 ```
 
+
+### Inline Elixir Code
+
+Jot also gives you ways to write Elixir inside your templates.
+
+Lines prefixed with the dash character (`-`) will have their contents
+evaluated, and the return value discarded.
+
+```slim
+h1
+  - "Hello "
+  | world!
+```
+```html
+<h1>world!<h1>
+```
+
+Meanwhile lines prefixed with the equals character (`=`) will have their
+contents evaluated, and the return value will be inserted into the template.
+
+```slim
+h1
+  = "Hello "
+  | world!
+```
+```html
+<h1>Hello world!<h1>
+```
+
+
 ### Comments
 
 A line starting with a slash (`/`) is a comment, and thus it outputs nothing.
@@ -50,6 +80,7 @@ comments.
 ```html
 <!-- Stop viewing my source! -->
 ```
+
 
 ### Line Continuations
 
