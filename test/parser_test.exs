@@ -70,5 +70,20 @@ defmodule ParserTest do
       indent:  3,
       content: "Enum.join([1, 2])",
     }
+    l("=1")  ~> %Code{ marker: "=", content: "1" }
+    l("= 1") ~> %Code{ marker: "=", content: "1" }
+  end
+
+  test "Elixir statement parsing" do
+    line(
+      content: "- IO.puts :foo", pos: 8, indent: 4
+    ) ~> %Code{
+      marker:  "-",
+      line:    8,
+      indent:  4,
+      content: "IO.puts :foo",
+    }
+    l("-1")  ~> %Code{ marker: "-", content: "1" }
+    l("- 1") ~> %Code{ marker: "-", content: "1" }
   end
 end

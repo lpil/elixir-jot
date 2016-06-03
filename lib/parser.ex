@@ -30,6 +30,7 @@ defmodule Jot.Parser do
       <<"|"::utf8, _::binary>> -> Plain
       <<"/"::utf8, _::binary>> -> Comment
       <<"="::utf8, _::binary>> -> Code
+      <<"-"::utf8, _::binary>> -> Code
       _                        -> Element
     end
     type.parse!(
