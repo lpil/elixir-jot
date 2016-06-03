@@ -42,6 +42,10 @@ names -> name
          : #names{ type  = binV('$1') }.
 names -> id
          : #names{ id    = binV('$1') }.
+names -> name id
+         : #names{ type  = binV('$1'), id = binV('$2') }.
+names -> name classes
+         : #names{ type  = binV('$1'), class = '$2' }.
 names -> id classes
          : #names{ id    = binV('$1'), class = '$2' }.
 names -> name id classes

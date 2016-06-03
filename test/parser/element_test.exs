@@ -39,8 +39,16 @@ defmodule Jot.Parser.ElementTest do
     "#logo.super.rad" ~> %Element{ id: "logo", class: "super rad" }
   end
 
+  test "type and id" do
+    "h1#the-one" ~> %Element{ type: "h1", id: "the-one" }
+  end
+
+  test "type and classes" do
+    "levy.big.bad.heavy" ~> %Element{ type: "levy", class: "big bad heavy" }
+  end
+
   test "type, id, and classes" do
-    "thing#logo.big" ~> %Element{ type: "thing", id: "logo", class: "big" }
+    "tunnel#long.dark" ~> %Element{ type: "tunnel", id: "long", class: "dark" }
   end
 
   test "elements with content" do
