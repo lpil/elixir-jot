@@ -91,7 +91,7 @@ defmodule Jot do
       ...> # <%= a + b %>
       ...> defmodule SampleA do
       ...>   require Jot
-      ...>   Jot.function_from_file :def, :sample, "sample.jot", [:a, :b]
+      ...>   Jot.function_from_file :def, :sample, "lib/sample.jot", [:a, :b]
       ...> end
       ...> SampleA.sample(1, 2)
       "3"
