@@ -1,9 +1,9 @@
 defmodule Jot do
   @moduledoc ~S"""
-  Jot is a fast and minimal template engine influenced by Pug and Slim. It's
-  also slightly more fun than HTML.
+  Jot is a fast and minimal template engine influenced by Pug and Slim.<br>
+  It's also slightly more fun than HTML.
 
-  Here's an example.
+  Here's what it looks like.
 
       html(lang="en")
         head
@@ -13,8 +13,13 @@ defmodule Jot do
           .col
             p Because this is slightly more fun than HTML.
 
+  And here's how you might use it.
 
-      iex> Jot.eval_string("h1 Hello, world!")
+      iex> defmodule View do
+      ...>   require Jot
+      ...>   Jot.function_from_string :def, :sample, "h1 Hello, world!", []
+      ...> end
+      ...> View.sample()
       "<h1>Hello, world!</h1>"
 
   For full documentation of the Jot syntax see the project README.
@@ -146,9 +151,9 @@ defmodule Jot do
 
   ## Examples
 
-    iex> expr = Jot.compile_string("= a + b")
-    ...> Jot.eval_quoted(expr, [a: 1, b: 2])
-    "3"
+      iex> expr = Jot.compile_string("= a + b")
+      ...> Jot.eval_quoted(expr, [a: 1, b: 2])
+      "3"
   """
   def compile_string(template, opts \\ []) when is_binary(template) do
     Jot.Compiler.compile(template, opts)

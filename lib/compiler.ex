@@ -5,7 +5,7 @@ defmodule Jot.Compiler do
 
   @engine EEx.SmartEngine
 
-  @moduledoc """
+  @doc """
   Convert a Jot binary string template into Elixir AST.
   """
   def compile(template, _opts \\ []) do

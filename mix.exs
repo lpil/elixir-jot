@@ -31,10 +31,13 @@ defmodule Jot.Mixfile do
 
   defp deps do
     [
-      # Code style linter
-      {:dogma, github: "lpil/dogma", only: [:dev, :test]},
       # Automatic test runner
       {:mix_test_watch, github: "lpil/mix-test.watch", only: [:dev, :test]},
+
+      # Markdown processor
+      {:earmark, "~> 0.2", only: :dev},
+      # Documentation generator
+      {:ex_doc, "~> 0.11", only: :dev},
     ]
   end
 end
