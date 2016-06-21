@@ -15,6 +15,17 @@ html(lang="en")
 
 ## Reference
 
+### Doctype
+
+There are shortcuts for commonly used doctypes:
+
+```jade
+doctype html
+```
+```html
+<!DOCTYPE html>
+```
+
 ### Plain Text
 
 A line starting with a pipe character (`|`) will be treated as plain text.
