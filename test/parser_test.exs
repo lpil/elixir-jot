@@ -1,9 +1,10 @@
 defmodule ParserTest do
   use ExUnit.Case, async: true
 
+  alias Jot.HTML.Code
+  alias Jot.HTML.Doctype
   alias Jot.HTML.Element
   alias Jot.HTML.Text
-  alias Jot.HTML.Code
 
   use Jot.Record, import: [:element, :line]
 
@@ -42,6 +43,16 @@ defmodule ParserTest do
       indent:  3,
       content: "Hi",
       attributes: [{"style", ""}],
+    }
+  end
+
+  test "doctype parsing" do
+    line(
+      content: "doctype html", pos: 1, indent: 3
+    ) ~> %Doctype{
+      type:    "html",
+      line:    1,
+      indent:  3,
     }
   end
 

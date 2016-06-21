@@ -8,6 +8,7 @@ defmodule Jot.Parser do
   alias __MODULE__.Comment
   alias __MODULE__.Element
   alias __MODULE__.Plain
+  alias __MODULE__.Doctype
 
   use Jot.Record, import: [:line]
 
@@ -27,11 +28,12 @@ defmodule Jot.Parser do
   """
   def parse_line!(record) when is_line(record) do
     type = case line(record, :content) do
-      <<"|"::utf8, _::binary>> -> Plain
-      <<"/"::utf8, _::binary>> -> Comment
-      <<"="::utf8, _::binary>> -> Code
-      <<"-"::utf8, _::binary>> -> Code
-      _                        -> Element
+      <<"doctype"::utf8, _::binary>> -> Doctype
+      <<"|"::utf8, _::binary>>       -> Plain
+      <<"/"::utf8, _::binary>>       -> Comment
+      <<"="::utf8, _::binary>>       -> Code
+      <<"-"::utf8, _::binary>>       -> Code
+      _                              -> Element
     end
     type.parse!(
       line(record, :content),

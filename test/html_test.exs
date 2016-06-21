@@ -2,9 +2,10 @@ defmodule Jot.HTMLTest do
   use ExUnit.Case, async: true
   use Jot.Record,  import: [:element]
 
+  alias Jot.HTML.Code
+  alias Jot.HTML.Doctype
   alias Jot.HTML.Element
   alias Jot.HTML.Text
-  alias Jot.HTML.Code
 
   defmacro lines ~> fragments do
     quote do
@@ -117,5 +118,9 @@ defmodule Jot.HTMLTest do
       %Code{ marker: "=", indent: 2, content: "get_title()" },
       "</h1>",
     ]
+  end
+
+  test "doctypes" do
+    [%Doctype{ type: "html" }] ~> ["<!DOCTYPE html>"]
   end
 end
