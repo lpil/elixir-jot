@@ -6,6 +6,13 @@ defmodule Jot.Parser.Doctype do
 
   @types [
     "html",
+    "xml",
+    "transitional",
+    "strict",
+    "frameset",
+    "1.1",
+    "basic",
+    "mobile",
   ]
 
   def parse!(<<"doctype "::utf8, type::binary>>, line, indent)
@@ -13,4 +20,5 @@ defmodule Jot.Parser.Doctype do
   do
     %Doctype{ type: type, line: line, indent: indent }
   end
+
 end

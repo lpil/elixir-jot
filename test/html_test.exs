@@ -121,6 +121,32 @@ defmodule Jot.HTMLTest do
   end
 
   test "doctypes" do
-    [%Doctype{ type: "html" }] ~> ["<!DOCTYPE html>"]
+    [%Doctype{ type: "html" }] ~> [
+      "<!DOCTYPE html>"
+    ]
+    [%Doctype{ type: "xml" }] ~> [
+      ~S(<?xml version="1.0" encoding="utf-8" ?>)
+    ]
+    [%Doctype{ type: "transitional" }] ~> [
+      ~S(<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">)
+    ]
+    [%Doctype{ type: "strict" }] ~> [
+      ~S(<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">)
+    ]
+    [%Doctype{ type: "frameset" }] ~> [
+      ~S(<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">)
+    ]
+    [%Doctype{ type: "1.1" }] ~> [
+      ~S(<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">)
+    ]
+    [%Doctype{ type: "basic" }] ~> [
+      ~S(<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">)
+    ]
+    [%Doctype{ type: "mobile" }] ~> [
+      ~S(<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">)
+    ]
+    [%Doctype{ type: "some custom type" }] ~> [
+      ~S(<!DOCTYPE some custom type>)
+    ]
   end
 end
